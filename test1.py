@@ -23,9 +23,9 @@ class Body:
         self.color = color
         self.radius = radius
         self.mass = mass
-planet1 = Body(500,300,15,0,(0,0,255),10,1)
+planet1 = Body(500,300,6.1,0,(0,0,255),10,1)
 sun = Body(500,500,0,0,(255,255,0),30,7500)
-planet2 = Body(500,100,20,0,(255,0,0),15,5)
+planet2 = Body(500,100,4.3,0,(255,0,0),15,5)
 bodies = [sun,planet1,planet2]
 G= 1
 ax = 1
@@ -39,9 +39,11 @@ def update_physics(bodies):
         dy = sun.y - body.y 
         distance = math.sqrt(dx**2 + dy**2 +100)
         a = G*sun.mass/distance**2
-        body.vx += ax * (dx/distance)
+        ax = a*dx/distance
+        ay = a*dy/distance
+        body.vx += ax
         body.x +=  body.vx
-        body.vy += ay* (dy/distance)  
+        body.vy += ay  
         body.y += body.vy
 while running:
     for event in pygame.event.get():
