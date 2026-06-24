@@ -7,6 +7,7 @@ pygame.init()
 
 WIDTH = 1000
 HEIGHT = 1000
+MAX_TRAIL = 600
 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -15,7 +16,7 @@ pygame.display.set_caption("Pygame Playground")
 
 running = True
 class Body:
-    def __init__(self,x,y,vx,vy,color,radius,mass):
+    def __init__(self,x,y,vx,vy,color,radius,mass,):
         self.x = x
         self.y = y
         self.vx = vx
@@ -23,6 +24,7 @@ class Body:
         self.color = color
         self.radius = radius
         self.mass = mass
+        self.trail = []
 planet1 = Body(500,300,6.1,0,(0,0,255),10,1)
 sun = Body(500,500,0,0,(255,255,0),30,7500)
 planet2 = Body(500,100,4.3,0,(255,0,0),15,5)
@@ -45,6 +47,9 @@ def update_physics(bodies):
         body.x +=  body.vx
         body.vy += ay  
         body.y += body.vy
+        body.trail.append((body.x, body.y))
+        if len(body.trail)>MAX_TRAIL:
+            body.trail.pop(0)
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,6 +57,9 @@ while running:
     screen.fill((0,0,0))
     update_physics(bodies)
     for body in bodies:
+        if body is not sun:
+            for i in range(len(body.trail)-1):
+                pygame.draw.line(screen,body.color,body.trail[i],body.trail[i+1],2)
         pygame.draw.circle(screen,(body.color),(body.x,body.y),body.radius)
         if body.x+body.radius>=WIDTH or body.x-body.radius<=0:
            body.vx*= -1
