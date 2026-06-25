@@ -30,9 +30,9 @@ class Body:
         self.trail = []
 planet1 = Body(500,300,6.1,0,(0,0,255),10,1)
 sun = Body(500,500,0,0,(255,255,0),30,7500)
-planet2 = Body(500,100,4.3,0,(255,0,0),15,5)
-planet3 = Body(500,200,5,0,(180,0,255),12.5,3)
-planet4 = Body(500,0,3.8,0,(0,255,255),17,7 )
+planet2 = Body(500,100,4.3,0,(255,0,0),15,1)
+planet3 = Body(500,200,5,0,(180,0,255),12.5,1)
+planet4 = Body(500,0,3.8,0,(0,255,255),17,1 )
 bodies = [sun,planet1,planet2,planet3,planet4]
 G= 1
 def update_physics(bodies):
@@ -44,7 +44,7 @@ def update_physics(bodies):
                 continue
             dx = other_body.x - body.x
             dy = other_body.y - body.y 
-            distance = math.sqrt(dx**2 + dy**2 +100)
+            distance = math.sqrt(dx**2 + dy**2 +1)
             a = G*other_body.mass/distance**2
             ax = a*dx/distance
             ay = a*dy/distance
@@ -86,7 +86,7 @@ while running:
                 sy1 = (y1 - camera_y) * zoom + HEIGHT/2
                 sx2 = (x2 - camera_x) * zoom + WIDTH/2
                 sy2 = (y2 - camera_y) * zoom + HEIGHT/2
-                pygame.draw.line(screen,body.color,(sx1,sy1),(sx2,sy2),2) 
+                pygame.draw.line(screen,body.color,(sx1,sy1),(sx2,sy2),1) 
         scaled_radius = max(1, int(body.radius*zoom))               
         pygame.draw.circle(screen,(body.color),(int(sx),int(sy)),scaled_radius)
     pygame.display.flip()
