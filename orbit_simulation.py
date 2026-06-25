@@ -64,7 +64,15 @@ while running:
     if keys[pygame.K_i]:
             zoom*= 1.01
     if keys[pygame.K_o]:
-            zoom/= 1.01       
+            zoom/= 1.01  
+    if keys[pygame.K_a]:
+     camera_x -= 5 / zoom  # Dividing by zoom keeps the scroll speed feeling natural
+    if keys[pygame.K_d]:
+     camera_x += 5 / zoom
+    if keys[pygame.K_w]:
+     camera_y -= 5 / zoom
+    if keys[pygame.K_s]:
+     camera_y += 5 / zoom             
     screen.fill((0,0,0))
     update_physics(bodies)
     for body in bodies:
