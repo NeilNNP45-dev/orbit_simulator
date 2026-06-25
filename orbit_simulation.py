@@ -7,7 +7,7 @@ pygame.init()
 
 WIDTH = 1000
 HEIGHT = 1000
-MAX_TRAIL = 580
+MAX_TRAIL = 1000
 zoom = 1.0
 camera_x = WIDTH/2
 camera_y = HEIGHT/2
@@ -32,7 +32,8 @@ planet1 = Body(500,300,6.1,0,(0,0,255),10,1)
 sun = Body(500,500,0,0,(255,255,0),30,7500)
 planet2 = Body(500,100,4.3,0,(255,0,0),15,5)
 planet3 = Body(500,200,5,0,(180,0,255),12.5,3)
-bodies = [sun,planet1,planet2,planet3]
+planet4 = Body(500,0,3.8,0,(0,255,255),17,7 )
+bodies = [sun,planet1,planet2,planet3,planet4]
 G= 1
 def update_physics(bodies):
     for body in bodies:
@@ -66,7 +67,7 @@ while running:
     if keys[pygame.K_o]:
             zoom/= 1.01  
     if keys[pygame.K_a]:
-     camera_x -= 5 / zoom  # Dividing by zoom keeps the scroll speed feeling natural
+     camera_x -= 5 / zoom  
     if keys[pygame.K_d]:
      camera_x += 5 / zoom
     if keys[pygame.K_w]:
@@ -87,7 +88,7 @@ while running:
                 sy2 = (y2 - camera_y) * zoom + HEIGHT/2
                 pygame.draw.line(screen,body.color,(sx1,sy1),(sx2,sy2),2) 
         scaled_radius = max(1, int(body.radius*zoom))               
-        pygame.draw.circle(screen,(body.color),(int(sx),int(sy)),body.radius)
+        pygame.draw.circle(screen,(body.color),(int(sx),int(sy)),scaled_radius)
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
