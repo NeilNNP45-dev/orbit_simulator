@@ -1,4 +1,5 @@
 import pygame
+import random
 import sys
 from body import Body,bodies
 from physics import *
@@ -9,7 +10,7 @@ pygame.init()
 
 WIDTH = 1280
 HEIGHT = 720
-camera = Camera(WIDTH/2,HEIGHT/2,1.0,WIDTH,HEIGHT)
+camera = Camera(0,0,1.0,WIDTH,HEIGHT)
 
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -25,7 +26,18 @@ while running:
     sim_dt = dt * time_scale
     for event in pygame.event.get():
      if event.type == pygame.QUIT:
-            running = False    
+            running = False 
+     if event.type == pygame.MOUSEBUTTONDOWN:
+         if event.button == 1:
+             mx, my = event.pos
+             wx,wy = camera.screen_to_world(mx,my)
+             r = random.randint(0, 255)
+             g = random.randint(0, 255)
+             b = random.randint(0, 255)
+             color = (r, g, b)
+             new_body = Body(wx,wy,1,0,color,2,1)
+             bodies.append(new_body)
+
     keys = pygame.key.get_pressed()    
     camera.update(keys, dt)            
     screen.fill((0,0,0))

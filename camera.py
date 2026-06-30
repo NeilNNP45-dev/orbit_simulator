@@ -21,6 +21,10 @@ class Camera:
         self.y += 300*dt / self.zoom    
 
     def world_to_screen(self, x, y):
-        sx = (x - self.x)* self.zoom + self.height/2
-        sy = (y - self.y)* self.zoom + self.width/2 
+        sx = (x - self.x)* self.zoom + self.width/2
+        sy = (y - self.y)* self.zoom + self.height/2 
         return sx,sy   
+    def screen_to_world(self,sx,sy):
+        x =(sx - self.width/2)/self.zoom + self.x
+        y =(sy - self.height/2)/self.zoom + self.y
+        return x,y
